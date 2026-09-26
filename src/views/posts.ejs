@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitácora — Publicaciones</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Bitácora, inicio"><span class="wordmark-symbol">✳</span> BITÁCORA</a>
+    <nav aria-label="Principal"><a class="current" href="/posts">Publicaciones</a><a href="/posts/new">Escribir <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main class="page-shell">
+    <div class="section-heading">
+      <div><p class="eyebrow">ARCHIVO ABIERTO / LAB 06</p><h1>Lo que se <em>comparte.</em></h1></div>
+      <a class="action action-accent" href="/posts/new">Nueva publicación <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="list-head"><span>PUBLICACIONES / <%= String(posts.length).padStart(2, '0') %></span><span>ÚLTIMAS ENTRADAS</span></div>
+    <% if (!posts.length) { %>
+      <section class="empty-state"><span class="empty-glyph" aria-hidden="true">✳</span><h2>La primera página está en blanco.</h2><p>Escribe una publicación para abrir esta bitácora.</p><a href="/posts/new">Escribir ahora ↗</a></section>
+    <% } %>
+    <div class="post-list">
+      <% posts.forEach((post, index) => { %>
+        <article class="post-row">
+          <div class="post-index"><%= String(index + 1).padStart(2, '0') %><span class="post-date"><%= new Date(post.createdAt).toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }) %></span></div>
+          <div class="post-main">
+            <p class="post-author">POR <%= post.user ? `${post.user.name} ${post.user.lastName}` : 'USUARIO NO DISPONIBLE' %></p>
+            <h2><%= post.title %></h2>
+            <p class="post-content"><%= post.content %></p>
+            <% if (post.hashtags.length) { %><div class="post-tags"><% post.hashtags.forEach(tag => { %><span>#<%= tag %></span><% }) %></div><% } %>
+            <% if (post.imageUrl) { %><a class="image-link" href="<%= post.imageUrl %>" target="_blank" rel="noopener noreferrer">Ver imagen adjunta ↗</a><% } %>
+          </div>
+          <div class="post-actions"><a href="/posts/<%= post._id %>/edit">Editar ↗</a><form action="/posts/<%= post._id %>/delete" method="post"><button type="submit">Eliminar ×</button></form></div>
+        </article>
+      <% }) %>
+    </div>
+    <footer class="page-footer"><span>BITÁCORA / LAB 06</span><span>HECHO PARA COMPARTIR IDEAS</span></footer>
+  </main>
+</body>
+</html>

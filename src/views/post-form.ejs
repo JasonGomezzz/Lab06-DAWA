@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitácora — <%= post._id ? 'Editar' : 'Nueva' %> publicación</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Bitácora, inicio"><span class="wordmark-symbol">✳</span> BITÁCORA</a>
+    <nav aria-label="Principal"><a href="/posts">Volver al archivo <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main class="page-shell form-layout">
+    <aside class="form-aside"><p class="eyebrow">BITÁCORA / LAB 06</p><h1><%= post._id ? 'Reescribe' : 'Comparte' %><br><em>tu idea.</em></h1><p>Las buenas ideas merecen un lugar propio. Dale un título, cuenta lo que piensas y elige quién firma la entrada.</p><span class="aside-mark" aria-hidden="true">✳</span></aside>
+    <section class="form-panel">
+      <div class="form-top"><span>PUBLICACIÓN</span><span><%= post._id ? 'EDITAR ENTRADA' : 'NUEVA ENTRADA' %></span></div>
+      <% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+      <% if (!users.length) { %><p class="form-error">Primero registra un usuario mediante POST /api/users.</p><% } %>
+      <form action="<%= post._id ? `/posts/${post._id}/edit` : '/posts' %>" method="post">
+        <div class="field"><label for="title">01 / Título <small>5 a 30 caracteres</small></label><input id="title" name="title" minlength="5" maxlength="30" required placeholder="Una idea en pocas palabras" value="<%= post.title || '' %>"></div>
+        <div class="field"><label for="content">02 / Contenido <small>Mínimo 10 caracteres</small></label><textarea id="content" name="content" minlength="10" required placeholder="Empieza a escribir aquí..."><%= post.content || '' %></textarea></div>
+        <div class="field"><label for="user">03 / Autor</label><select id="user" name="user" required><option value="">Selecciona un usuario</option><% users.forEach(user => { %><option value="<%= user._id %>" <%= String(post.user?._id || post.user || '') === String(user._id) ? 'selected' : '' %>><%= user.name %> <%= user.lastName %></option><% }) %></select></div>
+        <div class="field-pair"><div class="field"><label for="hashtags">04 / Etiquetas</label><input id="hashtags" name="hashtags" placeholder="dawa, ideas, web" value="<%= Array.isArray(post.hashtags) ? post.hashtags.join(', ') : (post.hashtags || '') %>"></div><div class="field"><label for="imageUrl">05 / URL de imagen <small>Opcional</small></label><input id="imageUrl" name="imageUrl" type="url" placeholder="https://..." value="<%= post.imageUrl || '' %>"></div></div>
+        <div class="form-bottom"><button type="submit" class="action action-dark" <%= users.length ? '' : 'disabled' %>>Guardar publicación <span aria-hidden="true">↗</span></button><a href="/posts">Cancelar</a></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
