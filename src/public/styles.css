@@ -103,6 +103,8 @@ em { font-family: Georgia, serif; font-style: italic; font-weight: 400; }
 .field input, .field textarea, .field select { display: block; width: 100%; border: 1px solid var(--line); border-radius: 0; background: #fffdf7; padding: 15px 16px; color: var(--ink); outline: none; }
 .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
 .field textarea { resize: vertical; min-height: 150px; }
+.field-help { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.field-help a { color: var(--blue); font-weight: 700; text-decoration: underline; }
 .field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-bottom { display: flex; align-items: center; gap: 26px; margin-top: 38px; }
 .form-bottom .action { cursor: pointer; }

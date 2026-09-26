@@ -16,11 +16,11 @@
     <section class="form-panel">
       <div class="form-top"><span>PUBLICACIÓN</span><span><%= post._id ? 'EDITAR ENTRADA' : 'NUEVA ENTRADA' %></span></div>
       <% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
-      <% if (!users.length) { %><p class="form-error">Primero registra un usuario mediante POST /api/users.</p><% } %>
+      <% if (!users.length) { %><p class="form-error">Todavía no hay autores. Registra el primero para publicar.</p><% } %>
       <form action="<%= post._id ? `/posts/${post._id}/edit` : '/posts' %>" method="post">
         <div class="field"><label for="title">01 / Título <small>5 a 30 caracteres</small></label><input id="title" name="title" minlength="5" maxlength="30" required placeholder="Una idea en pocas palabras" value="<%= post.title || '' %>"></div>
         <div class="field"><label for="content">02 / Contenido <small>Mínimo 10 caracteres</small></label><textarea id="content" name="content" minlength="10" required placeholder="Empieza a escribir aquí..."><%= post.content || '' %></textarea></div>
-        <div class="field"><label for="user">03 / Autor</label><select id="user" name="user" required><option value="">Selecciona un usuario</option><% users.forEach(user => { %><option value="<%= user._id %>" <%= String(post.user?._id || post.user || '') === String(user._id) ? 'selected' : '' %>><%= user.name %> <%= user.lastName %></option><% }) %></select></div>
+        <div class="field"><label for="authorName">03 / Autor <small>Escribe tu nombre</small></label><input id="authorName" name="authorName" list="authors" required autocomplete="off" placeholder="Nombre y apellido" value="<%= authorName %>"><datalist id="authors"><% users.forEach(user => { %><option value="<%= user.name %> <%= user.lastName %>"></option><% }) %></datalist><p class="field-help">¿Tu nombre no aparece? <a href="/users/new">Registrar autor ↗</a></p></div>
         <div class="field-pair"><div class="field"><label for="hashtags">04 / Etiquetas</label><input id="hashtags" name="hashtags" placeholder="dawa, ideas, web" value="<%= Array.isArray(post.hashtags) ? post.hashtags.join(', ') : (post.hashtags || '') %>"></div><div class="field"><label for="imageUrl">05 / URL de imagen <small>Opcional</small></label><input id="imageUrl" name="imageUrl" type="url" placeholder="https://..." value="<%= post.imageUrl || '' %>"></div></div>
         <div class="form-bottom"><button type="submit" class="action action-dark" <%= users.length ? '' : 'disabled' %>>Guardar publicación <span aria-hidden="true">↗</span></button><a href="/posts">Cancelar</a></div>
       </form>

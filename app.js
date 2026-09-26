@@ -7,6 +7,7 @@ import connectDB from './src/db/database.js';
 import homeRoutes from './src/routes/home.routes.js';
 import postRoutes from './src/routes/post.routes.js';
 import apiRoutes from './src/routes/api.routes.js';
+import userRoutes from './src/routes/user.routes.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 export const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.static(path.join(root, 'src', 'public')));
 app.use('/', homeRoutes);
 app.use('/posts', postRoutes);
+app.use('/users', userRoutes);
 app.use('/api', apiRoutes);
 
 app.use((error, req, res, next) => {

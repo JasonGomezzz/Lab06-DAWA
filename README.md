@@ -35,7 +35,7 @@ También puedes usar `npm start` para ejecutar el servidor sin recarga automáti
 
 ## Funcionalidad
 
-La portada lleva al listado de publicaciones. Desde la web se puede crear, editar y eliminar cada post. Para crear uno debe existir un usuario; la aplicación también expone `POST /api/users` para registrarlo y `GET /api/users` para consultarlos.
+La portada lleva al listado de publicaciones. Desde la web se puede crear, editar y eliminar cada post. En el formulario se escribe el nombre del autor; si aún no está registrado, el enlace **Registrar autor** permite crear su usuario antes de publicar. La aplicación también expone `POST /api/users` y `GET /api/users`.
 
 Las rutas JSON de publicaciones son `POST /api/posts`, `GET /api/posts`, `PUT /api/posts/:id` y `DELETE /api/posts/:id`. El modelo `User` exige edad mínima de 18 años y contraseña de al menos 8 caracteres; la contraseña se guarda como hash y no se incluye en las respuestas. `Post` exige título de 5 a 30 caracteres, contenido de al menos 10 caracteres y un usuario existente.
 

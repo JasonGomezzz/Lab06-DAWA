@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitácora — Registrar autor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Bitácora, inicio"><span class="wordmark-symbol">✳</span> BITÁCORA</a>
+    <nav aria-label="Principal"><a href="/posts/new">Volver a la publicación <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main class="page-shell form-layout">
+    <aside class="form-aside"><p class="eyebrow">BITÁCORA / LAB 06</p><h1>Firma con<br><em>tu nombre.</em></h1><p>Registra tus datos una vez. Después podrás escribir tu nombre como autor de cada publicación.</p><span class="aside-mark" aria-hidden="true">✳</span></aside>
+    <section class="form-panel">
+      <div class="form-top"><span>AUTOR</span><span>NUEVO REGISTRO</span></div>
+      <% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+      <form action="/users" method="post">
+        <div class="field-pair"><div class="field"><label for="name">01 / Nombre</label><input id="name" name="name" required value="<%= user.name || '' %>"></div><div class="field"><label for="lastName">02 / Apellido</label><input id="lastName" name="lastName" required value="<%= user.lastName || '' %>"></div></div>
+        <div class="field"><label for="email">03 / Correo</label><input id="email" name="email" type="email" required value="<%= user.email || '' %>"></div>
+        <div class="field-pair"><div class="field"><label for="age">04 / Edad <small>18 o más</small></label><input id="age" name="age" type="number" min="18" required value="<%= user.age || '' %>"></div><div class="field"><label for="phoneNumber">05 / Teléfono <small>Opcional</small></label><input id="phoneNumber" name="phoneNumber" value="<%= user.phoneNumber || '' %>"></div></div>
+        <div class="field"><label for="password">06 / Contraseña <small>Mínimo 8 caracteres</small></label><input id="password" name="password" type="password" minlength="8" required autocomplete="new-password"></div>
+        <div class="form-bottom"><button type="submit" class="action action-dark">Registrar autor <span aria-hidden="true">↗</span></button><a href="/posts/new">Cancelar</a></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
